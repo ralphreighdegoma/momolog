@@ -1,0 +1,52 @@
+{
+    "name": "momolog/momolog",
+    "description": "A simple PHP debugging utility that sends variables to a Node.js debug server for real-time monitoring and analysis",
+    "type": "library",
+    "keywords": ["debug", "logging", "development", "monitoring", "php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your.email@example.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0|^10.0"
+    },
+    "suggest": {
+        "ext-curl": "For better performance when sending debug data"
+    },
+    "autoload": {
+        "psr-4": {
+            "MomoLog\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MomoLog\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MomoLog\\Laravel\\MomoLogServiceProvider"
+            ],
+            "aliases": {
+                "MomoLog": "MomoLog\\Laravel\\Facades\\MomoLog"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
