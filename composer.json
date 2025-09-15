@@ -1,13 +1,13 @@
 {
-    "name": "momolog/momolog",
+    "name": "ralphreighdegoma/momolog",
     "description": "A simple PHP debugging utility that sends variables to a Node.js debug server for real-time monitoring and analysis",
     "type": "library",
     "keywords": ["debug", "logging", "development", "monitoring", "php"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Your Name",
-            "email": "your.email@example.com"
+            "name": "Ralph Reigh Degoma",
+            "email": "ralphreighdegoma@example.com"
         }
     ],
     "require": {
