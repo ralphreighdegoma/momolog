@@ -18,7 +18,7 @@ class MomoLog
     /**
      * Configuration options
      */
-    private static array $config = [
+    private static $config = [
         'server_url' => 'http://localhost:9090/debug',
         'timeout' => 1,
         'enabled' => null,
@@ -333,7 +333,7 @@ class MomoLog
             if ($index === 0) continue;
             
             $file = $call['file'] ?? '';
-            if (!empty($file) && !str_contains($file, 'MomoLog')) {
+            if (!empty($file) && strpos($file, 'MomoLog') === false) {
                 return [
                     'file' => $file,
                     'line' => $call['line'] ?? 0,
@@ -360,7 +360,7 @@ class MomoLog
         $types = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP'];
         
         foreach ($types as $type) {
-            if (str_starts_with($query, $type)) {
+            if (strpos($query, $type) === 0) {
                 return $type;
             }
         }
@@ -376,9 +376,9 @@ class MomoLog
         // Check server name for local development
         if (isset($_SERVER['SERVER_NAME'])) {
             $serverName = $_SERVER['SERVER_NAME'];
-            if (str_contains($serverName, 'localhost') || 
-                str_contains($serverName, '127.0.0.1') || 
-                str_contains($serverName, '.local')) {
+            if (strpos($serverName, 'localhost') !== false || 
+                strpos($serverName, '127.0.0.1') !== false || 
+                strpos($serverName, '.local') !== false) {
                 return true;
             }
         }
