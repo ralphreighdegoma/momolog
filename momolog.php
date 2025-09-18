@@ -50,6 +50,9 @@ function momolog($data, $label = null) {
         // Get caller information once to avoid multiple backtrace calls
         $callerInfo = _getCallerInfo();
         
+        // Get stack trace for better debugging
+        $stackTrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
+        
         // Prepare the debug data with metadata
         $debugInfo = [
             'data' => $data,
@@ -59,8 +62,10 @@ function momolog($data, $label = null) {
                 'timestamp' => date('Y-m-d H:i:s'),
                 'file' => $callerInfo['file'] ?? 'unknown',
                 'line' => $callerInfo['line'] ?? 0,
+                'function' => $callerInfo['function'] ?? 'unknown',
                 'memory_usage' => memory_get_usage(true),
-                'peak_memory' => memory_get_peak_usage(true)
+                'peak_memory' => memory_get_peak_usage(true),
+                'stack_trace' => $stackTrace
             ]
         ];
         
@@ -309,19 +314,25 @@ function _sendViaFileGetContentsAsync($postData) {
  * @return array
  */
 function _getCallerInfo() {
-    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 8);
     
-    // Find the first caller that's not from momolog.php
+    // Find the first caller that's not from momolog.php or helpers.php
     foreach ($trace as $index => $call) {
         if ($index === 0) continue; // Skip _getCallerInfo itself
         
         $file = $call['file'] ?? '';
-        if (!empty($file) && substr($file, -10) !== 'momolog.php') {
-            return [
-                'file' => $file,
-                'line' => $call['line'] ?? 0,
-                'function' => $call['function'] ?? 'unknown'
-            ];
+        if (!empty($file)) {
+            $filename = basename($file);
+            // Skip momolog.php, helpers.php, and any MomoLog class files
+            if ($filename !== 'momolog.php' && 
+                $filename !== 'helpers.php' && 
+                strpos($file, 'MomoLog') === false) {
+                return [
+                    'file' => $file,
+                    'line' => $call['line'] ?? 0,
+                    'function' => $call['function'] ?? 'unknown'
+                ];
+            }
         }
     }
     
