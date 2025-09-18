@@ -18,13 +18,13 @@ A simple PHP debugging utility that sends variables to a Node.js debug server fo
 ### Via Composer (Recommended)
 
 ```bash
-composer require ralphreighdegoma/momolog
+composer require talliesoft/momolog
 ```
 
 ### Global Installation
 
 ```bash
-composer global require ralphreighdegoma/momolog
+composer global require talliesoft/momolog
 ```
 
 ### Laravel Installation
