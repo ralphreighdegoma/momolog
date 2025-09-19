@@ -1,13 +1,13 @@
 {
-    "name": "ralphreighdegoma/momolog",
+    "name": "talliesoft/momolog",
     "description": "A simple PHP debugging utility that sends variables to a Node.js debug server for real-time monitoring and analysis",
     "type": "library",
     "keywords": ["debug", "logging", "development", "monitoring", "php"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Ralph Reigh Degoma",
-            "email": "ralphreighdegoma@example.com"
+            "name": "Tallie Soft",
+            "email": "talliesoft@gmail.com"
         }
     ],
     "require": {
